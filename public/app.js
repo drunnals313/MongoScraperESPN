@@ -86,6 +86,3 @@ $(document).on("click", "#deleteBtn", function () {
   })
 });
 
-// Click to add a note
-
-// Click to delete a note

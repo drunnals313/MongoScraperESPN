@@ -57,7 +57,7 @@ db.once("open", function () {
 // A GET request to scrape the echojs website
 app.get("/scrape", function (req, res) {
   // First, we grab the body of the html with request, ESPN.com/NBA
-  request("http://www.espn.com/nba", function (error, response, html) {
+  request("http://www.espn.com/nba/", function (error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
     // Now, we grab every h2 within an article tag, and do the following:
@@ -158,14 +158,7 @@ app.post("/articles/:id", function (req, res) {
   // Create a new comment and pass the req.body to the entry
   // var newComment = new Comment(req.body);
 console.log(req);
-  // // And save the new comment the db
-  // newComment.save(function (error, doc) {
-  //   // Log any errors
-  //   if (error) {
-  //     console.log(error);
-  //   }
-  //   // Otherwise
-  //   else {
+ 
   // Use the article id to find and update it's comment
   Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": req.body.saved })
     // Execute the above query
