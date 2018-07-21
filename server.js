@@ -19,7 +19,7 @@ var PORT = process.env.PORT || 3000;
 
 // Variable to hold our Database connections
 var herokuDeploy = "mongodb://heroku_5561mt58:rvrb2ap0lnnu1v971v107hi5fd@ds031632.mlab.com:31632/heroku_5561mt58";
-var localDeploy = "mongodb://localhost/ESPN";
+var localDeploy = "mongodb://localhost/ESPN";  //"mongodb://localhost/mongoHeadlines"
 
 
 // Initialize Express
@@ -57,7 +57,7 @@ db.once("open", function () {
 // A GET request to scrape the echojs website
 app.get("/scrape", function (req, res) {
   // First, we grab the body of the html with request, ESPN.com/NBA
-  request("http://www.espn.com/nba", function (error, response, html) {
+  request("http://www.espn.com/nfl", function (error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
     // Now, we grab every h2 within an article tag, and do the following:
@@ -71,7 +71,7 @@ app.get("/scrape", function (req, res) {
       result.description = $(this).children("div").children("p").text();
       result.link = $(this).attr("href");
       result.img = $(this).children("figure").children("picture").children("img").attr("data-default-src");
-      result.sport = "NBA";
+      result.sport = "NFL";
 
       // Using our Article model, create a new entry
       // This effectively passes the result object to the entry (and the title and link)
@@ -89,7 +89,7 @@ app.get("/scrape", function (req, res) {
         }
       });
 
-      console.log("NATIONAL BASKETBALL ASSOTIATION\n\n", result);
+      console.log("NATIONAL FOOTBALL LEAGUE\n\n", result);
     });
 
   });
