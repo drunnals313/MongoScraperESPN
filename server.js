@@ -19,7 +19,7 @@ var PORT = process.env.PORT || 3000;
 
 // Variable to hold our Database connections
 var herokuDeploy = "mongodb://heroku_5561mt58:rvrb2ap0lnnu1v971v107hi5fd@ds031632.mlab.com:31632/heroku_5561mt58";
-var localDeploy = "mongodb://localhost/ESPN";  //"mongodb://localhost/mongoHeadlines"
+var localDeploy = "mongodb://localhost/mongoHeadlines";  //"mongodb://localhost/ESPN"
 
 
 // Initialize Express
