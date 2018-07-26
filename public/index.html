@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <title>Dave Runnals- Scraping With Mongoose</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
+ 
     <link href="./css/style.css" rel="stylesheet">
 
 </head>
 
 <body>
-    <!-- Bootstrap Nav Bar -->
+   
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">MongoDB Web Scraper</a>
+        <a class="navbar-brand" href="#">Mongo and Cheerio Web Scraper</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -23,46 +23,41 @@
                     <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./saved.html">Saved Articles</a>
+                    <a class="nav-link" href="./saved.html">My Saved Articles</a>
                 </li>
             </ul>
-            <button id="scrapeBtn" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Scrape Articles</button>
+            <button id="scrapeBtn" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Re-Scrape Articles</button>
         </div>
     </nav>
 
     <div id="header" class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-3">NBA Article Web Scraper</h1>
-            <p class="lead">Read the top stories around the league, and save your favorite headlines with notes.</p>
+            <h1 class="display-5">NBA Article Web Scraper</h1>
+            <p class="lead">Read the top NBA, and save your favorites with notes.</p>
             <p><a class="btn btn-outline-primary my-2 my-sm-0" href="https://www.espn.com/nba/" role="button">ESPN.com</a></p>
         </div>
     </div>
 
-    <div class="jumbotron jumbotron-fluid text-center" style="
-    margin-top: -30px;
-">
-        <h1>Top NBA Headlines</h1>
+    <div class="jumbotron jumbotron-fluid text-center" style="margin-top: -30px;">
+        <h1>Scraped NBA Articles</h1>
     </div>
     <div class="container">
         <div class="row">
             <div class="articles col-lg-6"></div>
         </div>
-        <div id="notes"></div>
+        <div id="comments"></div>
     </div>
     </div>
     </div>
 
     <hr class="featurette-divider">
 
-    <!-- FOOTER -->
     <footer>
         <p class="text-center">2018 Dave Runnals &middot; Created For Bootcamp &middot; Content Belongs To <a href="https://www.espn.com/nba/">ESPN.com</a></p>
         <br>
-        <p class="text-center"><a href="#">Back to top</a></p>
+        <p class="text-center"><a href="#">Jump to top of page</a></p>
     </footer>
 
-
-    <!-- /.container -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="app.js"></script>
 </body>

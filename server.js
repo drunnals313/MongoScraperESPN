@@ -1,182 +1,166 @@
-/* Showing Mongoose's "Populated" Method
- * =============================================== */
 
-// Dependencies
+// dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-// Requiring our comment and Article models
-// var Comment = require("./models/comment.js");
+// Comment and Article models
+var Comment = require("./models/Comment.js"); ////?
 var Article = require("./models/Article.js");
-// Our scraping tools
+// scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
-// Set mongoose to leverage built in JavaScript ES6 Promises
+
 mongoose.Promise = Promise;
 
 var PORT = process.env.PORT || 3000;
 
-// Variable to hold our Database connections
+// database connections
 var herokuDeploy = "mongodb://heroku_5561mt58:rvrb2ap0lnnu1v971v107hi5fd@ds031632.mlab.com:31632/heroku_5561mt58";
-var localDeploy = "mongodb://localhost/mongoHeadlines";  //"mongodb://localhost/ESPN"
+var localDeploy = "mongodb://localhost/ESPN";  //"mongodb://localhost/
 
-
-// Initialize Express
 var app = express();
 
-// Use morgan and body parser with our app
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-// Make public a static dir
 app.use(express.static("public"));
 
-// Database configuration with mongoose
-mongoose.connect(herokuDeploy, {
-  useMongoClient: true
-});
+mongoose.connect(herokuDeploy);
+
 var db = mongoose.connection;
 
-// Show any mongoose errors
 db.on("error", function (error) {
   console.log("Mongoose Error: ", error);
 });
 
-// Once logged in to the db through mongoose, log a success message
 db.once("open", function () {
   console.log("Mongoose connection successful.");
 });
-
-
-// Routes
-// ======
-
-// A GET request to scrape the echojs website
+// scrape
 app.get("/scrape", function (req, res) {
-  // First, we grab the body of the html with request, ESPN.com/NBA
   request("http://www.espn.com/nba/", function (error, response, html) {
-    // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
-    // Now, we grab every h2 within an article tag, and do the following:
     $(".contentItem__padding").each(function (i, element) {
-
-      // Save an empty result object
       var result = {};
-
-      // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this).children("div").children("h1").text();
       result.description = $(this).children("div").children("p").text();
       result.link = $(this).attr("href");
       result.img = $(this).children("figure").children("picture").children("img").attr("data-default-src");
       result.sport = "NBA";
-
-      // Using our Article model, create a new entry
-      // This effectively passes the result object to the entry (and the title and link)
       var newArticle = new Article(result);
 
-      // Now, save that entry to the db
       newArticle.save(function (err, doc) {
-        // Log any errors
         if (err) {
           console.log(err);
         }
-        // Or log the doc
         else {
           console.log(doc);
         }
       });
 
-      console.log("NATIONAL BASKETBALL ASSOTIATION\n\n", result);
+      console.log("NBA!!!\n\n", result);
     });
 
   });
 
- 
-  // ==================================================
-  // ==================================================
-  // Tell the browser that we finished scraping the text
-  res.redirect("Scrape Complete");
+  res.redirect("Scraped");
 });
 
-// This will get the articles we scraped from the mongoDB
 app.get("/articles", function (req, res) {
-  // Grab every doc in the Articles array
-  // console.log("test");
   Article.find({}, function (error, doc) {
-    // Log any errors
     if (error) {
       console.log(error);
     }
-    // Or send the doc to the browser as a json object
     else {
       res.json(doc);
     }
-  });
+  }).sort({_id: -1});
 });
 
 app.get("/:sport", function (req, res) {
-
   Article.find({ "sport": req.params.sport })
-    // .populate("comment")
-    // now, execute our query
+    .populate('Comment')
     .exec(function (error, doc) {
-      // Log any errors
       if (error) {
         console.log(error);
       }
-      // Otherwise, send the doc to the browser as a json object
       else {
         res.json(doc);
       }
     });
 })
 
-// Grab an article by it's ObjectId
 app.get("/articles/:id", function (req, res) {
-  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   Article.findOne({ "_id": req.params.id })
-    // ..and populate all of the comments associated with it
-    // .populate("comment")
-    // now, execute our query
+  .populate('Comment')
     .exec(function (error, doc) {
-      // Log any errors
       if (error) {
         console.log(error);
       }
-      // Otherwise, send the doc to the browser as a json object
       else {
         res.json(doc);
       }
     });
 });
 
-// Create a new comment or replace an existing comment
-app.post("/articles/:id", function (req, res) {
-  // Create a new comment and pass the req.body to the entry
-  // var newComment = new Comment(req.body);
-console.log(req);
- 
-  // Use the article id to find and update it's comment
+/* app.post("/articles/:id", function (req, res) {
+  var newComment = new Comment(req.body);
+  console.log(req);
+  newComment.save(function (error, doc) {
+    if (error) {
+    console.log(error);
+    }
+    else {
   Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": req.body.saved })
-    // Execute the above query
+    .populate('comment')
     .exec(function (err, doc) {
-      // Log any errors
       if (err) {
         console.log(err);
       }
       else {
-        // Or send the document to the browser
         res.json(doc);
       }
     });
-  // }
+  }
 });
-// });
+}); */
+app.post('/comment/:id', function(req, res) {
+  var user = req.body.name;
+  var summary = req.body.comment;
+  var articleId = req.params.id;
 
-// Listen on port 3000
+  var commentObj = {
+    name: user,
+    body: summary
+  };
+ 
+  //creates a new comment
+  var newComment = new Comment(commentObj);
+
+  //save comment to database to the ID of the article
+  newComment.save(function(err, doc) {
+      if (err) {
+          console.log(err);
+      } else {
+          console.log("document ID: " + doc._id)
+          console.log("Article ID: " + articleId)
+
+          //find the article and push the comment in database to the ID 
+          Article.findOneAndUpdate({ "_id": req.params.id }, {$push: {'comment':doc._id}}, {new: true})
+            .exec(function(err, doc) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.redirect('/Article/' + articleId);
+                }
+            });
+        }
+  });
+});
+
 app.listen(PORT, function () {
   console.log(`App running on port ${PORT}!`);
 });

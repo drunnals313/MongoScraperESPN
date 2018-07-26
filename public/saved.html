@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <title>Dave Runnals - Scraping With Mongoose</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
+ 
     <link href="./css/style.css" rel="stylesheet">
 
 </head>
 
 <body>
-    <!-- Bootstrap Nav Bar -->
+    
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">MongoDB Web Scraper</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@
                     <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./index.html">Scraped Articles</a>
+                    <a class="nav-link" href="./index.html">Recently Scraped Articles</a>
                 </li>
             </ul>
         </div>
@@ -31,37 +31,32 @@
 
     <div id="header" class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-3">NBA Headline Web Scraper</h1>
-            <p class="lead">Read the top stories around the league, and save your favorite headlines.</p>
+            <h1 class="display-5">NBA Article Web Scraper</h1>
+            <p class="lead">Read the top NBA, and save your favorites with notes.</p>
             <p><a class="btn btn-outline-primary my-2 my-sm-0" href="http://www.espn.com/nba/" role="button">ESPN.com</a></p>
         </div>
     </div>
 
-    <div class="jumbotron jumbotron-fluid text-center" style="
-    margin-top: -30px;
-">
-        <h1>Saved NBA Headlines</h1>
+    <div class="jumbotron jumbotron-fluid text-center" style="margin-top: -30px;">
+        <h1>My Saved NBA Headlines</h1>
     </div>
     <div class="container">
         <div class="row">
             <div class="articlesSaved col-lg-6"></div>
         </div>
-        <div id="notes"></div>
+        <div id="comments"></div>
     </div>
     </div>
     </div>
 
     <hr class="featurette-divider">
 
-    <!-- FOOTER -->
     <footer>
-        <p class="text-center">2018 Dave Runnals &middot; Created For Coding Bootcamp &middot; Content Belongs To <a href="http://www.espn.com/nba/">ESPN.com</a></p>
+        <p class="text-center">2018 Dave Runnals &middot; Created For Coding Bootcamp &middot; Articles Belong To <a href="http://www.espn.com/nba/">ESPN.com</a></p>
         <br>
-        <p class="text-center"><a href="#">Back to top</a></p>
+        <p class="text-center"><a href="#">Jump to top of page</a></p>
     </footer>
 
-
-    <!-- /.container -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="app.js"></script>
 </body>
