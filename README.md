@@ -1,6 +1,9 @@
 # MongoScraperESPN
 ESPN mongo scraper 
 
+# Status: 
+*I am still working on getting comments to function properly and not scraping articles with missing data as the scrape gets held up. I also need to fix the article link. I am not concatenating the espn + article title correctly.* 
+
 
 
 
