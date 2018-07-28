@@ -43,7 +43,7 @@ app.get("/scrape", function (req, res) {
     var $ = cheerio.load(html);
     $(".contentItem__padding").each(function (i, element) {
       var result = {};
-      result.title = $(this).children("div").children("h1").text();
+      result.title = $(this).children("div").children("div").children("h1").text(); //
       result.description = $(this).children("div").children("p").text();
       result.link = $(this).attr("href");
       result.img = $(this).children("figure").children("picture").children("img").attr("data-default-src");
@@ -75,7 +75,7 @@ app.get("/articles", function (req, res) {
     else {
       res.json(doc);
     }
-  }).sort({_id: -1});
+  })  //.sort({_id: -1});
 });
 
 app.get("/:sport", function (req, res) {
