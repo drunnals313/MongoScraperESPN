@@ -43,7 +43,7 @@ app.get("/scrape", function (req, res) {
     var $ = cheerio.load(html);
     $(".contentItem__padding").each(function (i, element) {
       var result = {};
-      result.title = $(this).children("div").children("div").children("h1").text(); //
+      result.title = $(this).children("div").children("div").children("h1").text(); 
       result.description = $(this).children("div").children("div").children("p").text();
       result.link = $(this).attr("href");
       result.img = $(this).children("figure").children("picture").children("img").attr("data-default-src");
@@ -80,8 +80,8 @@ app.get("/articles", function (req, res) {
 
 app.get("/:sport", function (req, res) {
   Article.find({ "sport": req.params.sport })
-    .populate('Comment')
-    .populate('Name')
+    /* .populate('Comment')
+    .populate('Name') */
     .exec(function (error, doc) {
       if (error) {
         console.log(error);
@@ -94,8 +94,8 @@ app.get("/:sport", function (req, res) {
 
 app.get("/articles/:id", function (req, res) {
   Article.findOne({ "_id": req.params.id })
-  .populate('Comment')
-  .populate('Name')
+  /* .populate('Comment')
+  .populate('Name') */
     .exec(function (error, doc) {
       if (error) {
         console.log(error);
@@ -106,7 +106,7 @@ app.get("/articles/:id", function (req, res) {
     });
 });
 
-/* app.post("/articles/:id", function (req, res) {
+app.post("/articles/:id", function (req, res) {
   var newComment = new Comment(req.body);
   console.log(req);
   newComment.save(function (error, doc) {
@@ -126,7 +126,9 @@ app.get("/articles/:id", function (req, res) {
     });
   }
 });
-}); */
+}); 
+
+
 app.post('/comment/:id', function(req, res) {
   var user = req.body.name;
   var summary = req.body.comment;

@@ -20,7 +20,7 @@ $.getJSON("/articles", function (data) {
               "</div>" + "<br>"
               
           );
-          console.log("\"http://www.espn.com/" + data[i].link + "\"");
+      /*     console.log("\"http://www.espn.com/" + data[i].link + "\""); */
       } else {
           
           $(".articles").append(
@@ -35,7 +35,7 @@ $.getJSON("/articles", function (data) {
               "</div>" +
               "</div>" + "<br>"
           );
-          console.log("\"http://www.espn.com/" + data[i].link + "\"");
+         /*  console.log("\"http://www.espn.com/" + data[i].link + "\""); */
       }
   }
 });
