@@ -14,6 +14,8 @@ $.getJSON("/articles", function (data) {
               "<p id='articleDesc' class='card-text'>" + data[i].description + "</p>" +
               "<a href=\"http://www.espn.com/" + data[i].link + "\">Full Article Link></a>" + "<br>" + "<br>" +
               "<button data-id='" + data[i]._id + "' id='deleteBtn' class='btn btn-outline-primary my-2 my-sm-0' type='submit'>Delete From Saved Articles" + "</button>" +
+                "<input type='text' placeholder='Name' name='name' class='validate active'>" + 
+                "<input type='text' placeholder='Comment' name='comment' class='validate active'>" + "<br>" +
               "</div>" +
               "</div>" + "<br>"
               
@@ -22,7 +24,7 @@ $.getJSON("/articles", function (data) {
       } else {
           
           $(".articles").append(
-            //still not getting the article link correctly pieced together
+            
               "<div data-id='" + data[i]._id + "' class='card'>" +
               "<img id= 'imageSize' class='card-img-top' src='" + data[i].img + "' alt='Card image cap'>" +
               "<div class='card-body'>" +

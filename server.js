@@ -1,13 +1,9 @@
-
-// dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-// Comment and Article models
-var Comment = require("./models/Comment.js"); ////?
+var Comment = require("./models/Comment.js"); 
 var Article = require("./models/Article.js");
-// scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
 
@@ -15,8 +11,7 @@ mongoose.Promise = Promise;
 
 var PORT = process.env.PORT || 3000;
 
-// database connections
-var herokuDeploy = "mongodb://heroku_5561mt58:rvrb2ap0lnnu1v971v107hi5fd@ds031632.mlab.com:31632/heroku_5561mt58";
+var herokuDeploy = "mongodb://heroku_7gnl67g6:2b6533amufeddgmso9dp57n7ik@ds145981.mlab.com:45981/heroku_7gnl67g6";// my mlab link
 var localDeploy = "mongodb://localhost/ESPN";  //"mongodb://localhost/
 
 var app = express();
@@ -83,6 +78,7 @@ app.get("/articles", function (req, res) {
 app.get("/:sport", function (req, res) {
   Article.find({ "sport": req.params.sport })
     .populate('Comment')
+    .populate('Name')
     .exec(function (error, doc) {
       if (error) {
         console.log(error);
@@ -96,6 +92,7 @@ app.get("/:sport", function (req, res) {
 app.get("/articles/:id", function (req, res) {
   Article.findOne({ "_id": req.params.id })
   .populate('Comment')
+  .populate('Name')
     .exec(function (error, doc) {
       if (error) {
         console.log(error);
@@ -137,10 +134,10 @@ app.post('/comment/:id', function(req, res) {
     body: summary
   };
  
-  //creates a new comment
+  //I 
   var newComment = new Comment(commentObj);
 
-  //save comment to database to the ID of the article
+
   newComment.save(function(err, doc) {
       if (err) {
           console.log(err);
@@ -148,8 +145,8 @@ app.post('/comment/:id', function(req, res) {
           console.log("document ID: " + doc._id)
           console.log("Article ID: " + articleId)
 
-          //find the article and push the comment in database to the ID 
-          Article.findOneAndUpdate({ "_id": req.params.id }, {$push: {'comment':doc._id}}, {new: true})
+          
+          Article.findOneAndUpdate({ "_id": req.params.id }, {$push: {'comments':doc._id}}, {new: true})
             .exec(function(err, doc) {
                 if (err) {
                     console.log(err);
