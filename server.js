@@ -11,8 +11,12 @@ mongoose.Promise = Promise;
 
 var PORT = process.env.PORT || 3000;
 
-var herokuDeploy = "mongodb://heroku_7gnl67g6:2b6533amufeddgmso9dp57n7ik@ds145981.mlab.com:45981/heroku_7gnl67g6";// my mlab link
-var localDeploy = "mongodb://localhost/ESPN";  //"mongodb://localhost/
+var MONGODB_URI = "mongodb://heroku_7gnl67g6:2b6533amufeddgmso9dp57n7ik@ds145981.mlab.com:45981/heroku_7gnl67g6";// my mlab link
+var localDeploy = "mongodb://localhost/mongoHeadlines";  //"mongodb://localhost/
+
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 var app = express();
 
@@ -23,7 +27,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 
-mongoose.connect(herokuDeploy);
+
 
 var db = mongoose.connection;
 
