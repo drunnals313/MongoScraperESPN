@@ -44,6 +44,7 @@ app.get("/scrape", function (req, res) {
     $(".contentItem__padding").each(function (i, element) {
       var result = {};
       result.title = $(this).children("div").children("div").children("h1").text(); 
+      console.log(result.title);
       result.description = $(this).children("div").children("div").children("p").text();
       result.link = $(this).attr("href");
       result.img = $(this).children("figure").children("picture").children("img").attr("data-default-src");
