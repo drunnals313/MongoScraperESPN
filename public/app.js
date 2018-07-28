@@ -31,7 +31,7 @@ $.getJSON("/articles", function (data) {
               "<h4 id='articleTitle' class='card-title' href='" + data[i].link + "'><b>" + data[i].title + "</b></h4>" +
               "<p id='articleDesc' class='card-text'>" + data[i].description + "</p>" +
               "<a href=\"http://www.espn.com/" + data[i].link + "\">Full Article Link></a>" + "<br>" + "<br>" +
-              "<button data-id='" + data[i]._id + "' id='saveBtn' class='btn btn-outline-primary my-2 my-sm-0' type='submit'>Save This Articles" + "</button>" +
+              "<button data-id='" + data[i]._id + "' id='saveBtn' class='btn btn-outline-primary my-2 my-sm-0' type='submit'>Save This Article" + "</button>" +
               "</div>" +
               "</div>" + "<br>"
           );
