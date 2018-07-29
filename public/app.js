@@ -6,7 +6,7 @@ $.getJSON("/articles", function (data) {
       if (data[i].saved) {
         
           $(".articlesSaved").append(
-         ///still not getting the article link correctly pieced together
+        
               "<div data-id='" + data[i]._id + "' class='card'>" +
               "<img id= 'imageSize' class='card-img-top' src='" + data[i].img + "' alt='Card image cap'>" +
               "<div class='card-body'>" +
@@ -22,7 +22,7 @@ $.getJSON("/articles", function (data) {
           );
       /*     console.log("\"http://www.espn.com/" + data[i].link + "\""); */
       } else {
-        $(".articles").clear();
+        /* $(".articles").clear(); */
           $(".articles").append(
             
               "<div data-id='" + data[i]._id + "' class='card'>" +
