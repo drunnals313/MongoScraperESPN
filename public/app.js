@@ -22,7 +22,7 @@ $.getJSON("/articles", function (data) {
           );
       /*     console.log("\"http://www.espn.com/" + data[i].link + "\""); */
       } else {
-          
+        $(".articles").clear();
           $(".articles").append(
             
               "<div data-id='" + data[i]._id + "' class='card'>" +
